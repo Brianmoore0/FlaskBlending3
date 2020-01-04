@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Task Master </title>
+{% endblock %}
+
+{% block body %}
+
+    <div class="content">
+        <h1 style="text-align: center">Update Blend</h1>
+
+        <div class="form">
+            <form action="/update/{{ blend.id }}" method="POST">
+                <input type="text" name="location" id="location" value="{{ blend.location }}">
+                <input type="text" name="tankvolume" id="tankvolume" value="{{ blend.tankvolume }}">
+                <input type="text" name="actualrvp" id="actualrvp" value="{{ blend.actualrvp }}">
+                <input type="text" name="actualvl" id="actualvl" value="{{ blend.actualvl }}">
+                <input type="text" name="actualt50" id="actualt50" value="{{ blend.actualt50 }}">
+                <input type="submit" value="Update Blend">
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

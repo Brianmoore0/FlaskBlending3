@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+
+{% block head %}
+<h1 style="text-align: center">Blends</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+
+
+        {% if blends|length < 1 %}
+
+
+        {% else %}
+            <table>
+                <tr>
+                    <th>Blend ID</th>
+                    <th>Location</th>
+                    <th>Tank Volume</th>
+                    <th>Actual Rvp</th>
+                    <th>Actual V/L</th>
+                    <th>Actual T50</th>
+                     <th>BBLs Needed</th>
+                </tr>
+                {% for bl in blends %}
+                    <tr>
+                        <td>{{ bl.id }}</td>
+                        <td> {{ bl.location }} </td>
+                        <td> {{ bl.tankvolume }} </td>
+                        <td> {{ bl.actualrvp }} </td>
+                        <td> {{ bl.actualvl }} </td>
+                        <td> {{ bl.actualt50 }} </td>
+                        <td> {{ bl.finalcalc}} </td>
+                        <td>
+                            <a href="/delete/{{ bl.id }}">Delete</a>
+                            <br>
+                            <a href="/update/{{ bl.id }}">Update</a>
+                            <br>
+                            <a href="/autocalc/{{ bl.id }}">Calculate</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <form action="newblend/">
+            <input type="submit" value="Add New Blend">
+
+        </form>
+
+
+
+    </div>
+
+
+
+{% endblock %}

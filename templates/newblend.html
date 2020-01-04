@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+    <form method="POST">
+        <table>
+            <tr>
+                <th>Location Name</th>
+                <th>Tank Volume</th>
+                <th>Actual RVP</th>
+                <th>Actual V/L</th>
+                <th>Actual T50</th>
+            </tr>
+            <tr>
+
+            <td><input type="text" name="newlocation" id="newlocation"></td>
+            <td><input type="text" name="newtankvolume" id="newtankvolume"></td>
+            <td><input type="text" name="newactualrvp" id="newactualrvp"></td>
+            <td><input type="text" name="newactualvl" id="newactualvl"></td>
+            <td><input type="text" name="newactualt50" id="newactualt50"></td>
+            <td><input type="submit" value="Add Blend Info"></td>
+            </tr>
+
+        </table>
+    </form>
+
+{% endblock %}
