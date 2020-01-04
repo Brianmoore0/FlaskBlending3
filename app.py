@@ -1,15 +1,15 @@
 from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from AutoBlendSolverV4 import AutoBlendInfo
-from flask_material import Material
+from flask_sqlalchemy import SQLAlchemy
 
+from AutoBlendSolverV4 import AutoBlendInfo
 
 app = Flask(__name__)
-Material(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blend.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
 
 class Blend(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -95,6 +95,11 @@ def update(id):
 
     else:
         return render_template('update.html', blend=blend)
+
+
+@app.route('/material_test', methods=['GET', 'POST'])
+def material_test():
+    return render_template("Material_test.html")
 
 
 if __name__ == '__main__':
