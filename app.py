@@ -101,6 +101,9 @@ def update(id):
 def material_test():
     return render_template("Material_test.html")
 
+@app.route('/update_targets', methods=['GET', 'POST'])
+def update_targets():
+    return render_template('update_targets.html')
 
 if __name__ == '__main__':
     app.run()

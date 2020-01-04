@@ -12793,3 +12793,5 @@ var $jscomp$this = this;
 
   Range.init($('input[type=range]'));
 })(cash, M.anime);
+
+

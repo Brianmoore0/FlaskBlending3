@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-
-
-
 {% block head %}
-<h1 style="text-align: center">Blends</h1>
+
+
+
 {% endblock %}
 
 {% block body %}
+
+
+
     <div class="content">
 
 
@@ -22,7 +24,7 @@
                     <th>Actual Rvp</th>
                     <th>Actual V/L</th>
                     <th>Actual T50</th>
-                     <th>BBLs Needed</th>
+                    <th>BBLs Needed</th>
                 </tr>
                 {% for bl in blends %}
                     <tr>
@@ -32,7 +34,7 @@
                         <td> {{ bl.actualrvp }} </td>
                         <td> {{ bl.actualvl }} </td>
                         <td> {{ bl.actualt50 }} </td>
-                        <td> {{ bl.finalcalc}} </td>
+                        <td> {{ bl.finalcalc }} </td>
                         <td>
                             <a href="/delete/{{ bl.id }}">Delete</a>
                             <br>
@@ -44,14 +46,13 @@
                 {% endfor %}
             </table>
         {% endif %}
-        <form action="newblend/">
-            <input type="submit" value="Add New Blend">
-
-        </form>
-
+        <br>
+        <a href="/newblend/" class="btn-floating btn-large waves-effect waves-light red"><i
+                class="material-icons">add</i></a>
 
 
     </div>
+
 
 
 

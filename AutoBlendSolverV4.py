@@ -1,5 +1,5 @@
-from sympy.solvers import solve
 from sympy import Symbol
+from sympy.solvers import solve
 
 x = Symbol('x')
 
@@ -17,13 +17,15 @@ class AutoBlendInfo:
         self.actualt50 = actualt50
 
     def auto_calc_vl(self):
-        solution = (abs(round(((float(self.actualvl) - float(targetvl)) / 2) / 100 * int(self.tankvol), 1)))
+        solution = (
+            abs(round(((float(self.actualvl) - float(targetvl)) / 2) / 100 * int(self.tankvol.replace(',', '')), 1)))
         return solution
 
     def auto_calc_rvp(self):
         if float(self.actualrvp) < targetrvp:
             sol = (solve(
-                ((float(targetrvp) * (int(self.tankvol) + x)) - (int(self.tankvol) * float(self.actualrvp))) / x
+                ((float(targetrvp) * (int(self.tankvol.replace(',', '')) + x)) - (
+                            int(self.tankvol.replace(',', '')) * float(self.actualrvp))) / x
                 - int(btrvp)
                 , x, dict=True))
             return (round((sol[0][x]), 1))
@@ -31,7 +33,7 @@ class AutoBlendInfo:
             return "WARNING: Blend not possible, actual RVP is above target"
 
     def auto_calc_t50(self):
-        sol = round((float(self.actualt50) - 182) / 1.5 / 100 * (int(self.tankvol)), 1)
+        sol = round((float(self.actualt50) - 182) / 1.5 / 100 * (int(self.tankvol.replace(',', ''))), 1)
         if float(self.actualt50) >182:
             return(sol)
         else:
