@@ -15,7 +15,7 @@
 
                 <input placeholder="Location" type="text" name="newlocation" id="newlocation" class="validate" required>
 
-
+                <input placeholder="Blend Date" type="text" class="datepicker" name="newblenddate" id="newblenddate">
                 <input placeholder="Tank Volume" type="number" name="newtankvolume" id="newtankvolume">
 
 
@@ -33,4 +33,9 @@
             </form>
         </div>
     </div>
+
+    <script>
+        const Calender = document.querySelector('.datepicker');
+        M.Datepicker.init(Calender, {});
+    </script>
 {% endblock %}

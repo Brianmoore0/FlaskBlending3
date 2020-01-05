@@ -19,17 +19,27 @@ class Blend(db.Model):
     actualvl = db.Column(db.String(200), nullable=False)
     actualt50 = db.Column(db.String(200))
     finalcalc = db.Column(db.String(200))
-    blenddate = db.Column(db.DateTime)
-    targetrvp = db.Column(db.String(200))
+    blenddate = db.Column(db.String(200))
 
     def __repr__(self):
         return '<Blend %r>' % self.id
+
+
+class BlendTargets(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    targetdate = db.Column(db.String(200))
+    targetRVP = db.Column(db.String(200))
+    targetvl = db.Column(db.String(200))
+
+    def __repr__(self):
+        return '<BlendTargets %r>' % self.id
 
 
 @app.route('/')
 def index():
     blends = Blend.query.order_by(Blend.id).all()
     return render_template("index.html", blends=blends)
+
 
 @app.route('/newblend/', methods=['POST', 'GET'])
 def NewBlend():
@@ -39,7 +49,10 @@ def NewBlend():
         newactualrvp = request.form['newactualrvp']
         newactualvl = request.form['newactualvl']
         newactualt50 = request.form['newactualt50']
-        new_blend = Blend(location=newlocation, tankvolume=newtankvolume,actualrvp=newactualrvp, actualvl=newactualvl, actualt50=newactualt50)
+        newblenddate = request.form['newblenddate']
+
+        new_blend = Blend(location=newlocation, tankvolume=newtankvolume, actualrvp=newactualrvp, actualvl=newactualvl,
+                          actualt50=newactualt50, blenddate=newblenddate)
 
         try:
             db.session.add(new_blend)
@@ -83,6 +96,7 @@ def update(id):
 
     if request.method =='POST':
         blend.location = request.form['location']
+        blend.blenddate = request.form['blenddate']
         blend.tankvolume = request.form['tankvolume']
         blend.actualrvp = request.form['actualrvp']
         blend.actualvl = request.form['actualvl']
@@ -105,6 +119,7 @@ def material_test():
 @app.route('/update_targets', methods=['GET', 'POST'])
 def update_targets():
     return render_template('update_targets.html')
+
 
 if __name__ == '__main__':
     app.run()

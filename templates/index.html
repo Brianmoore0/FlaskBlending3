@@ -19,8 +19,9 @@
             <table class="highlight">
                 <thead>
                 <tr>
-                    <th>Blend ID</th>
+
                     <th>Location</th>
+                    <th>Blend Date</th>
                     <th>Tank Volume</th>
                     <th>Actual Rvp</th>
                     <th>Actual V/L</th>
@@ -31,19 +32,20 @@
                 {% for bl in blends %}
                     <tbody>
                     <tr>
-                        <td>{{ bl.id }}</td>
+
                         <td> {{ bl.location }} </td>
+                        <td>{{ bl.blenddate }}</td>
                         <td> {{ bl.tankvolume }} </td>
                         <td> {{ bl.actualrvp }} </td>
                         <td> {{ bl.actualvl }} </td>
                         <td> {{ bl.actualt50 }} </td>
                         <td> {{ bl.finalcalc }} </td>
                         <td>
-                            <a href="/delete/{{ bl.id }}">Delete</a>
+                            <a href="/autocalc/{{ bl.id }}">Calculate</a>
                             <br>
                             <a href="/update/{{ bl.id }}">Update</a>
                             <br>
-                            <a href="/autocalc/{{ bl.id }}">Calculate</a>
+                            <a href="/delete/{{ bl.id }}">Delete</a>
                         </td>
                     </tr>
                     </tbody>
