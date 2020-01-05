@@ -16,7 +16,8 @@
 
 
         {% else %}
-            <table>
+            <table class="highlight">
+                <thead>
                 <tr>
                     <th>Blend ID</th>
                     <th>Location</th>
@@ -26,7 +27,9 @@
                     <th>Actual T50</th>
                     <th>BBLs Needed</th>
                 </tr>
+                </thead>
                 {% for bl in blends %}
+                    <tbody>
                     <tr>
                         <td>{{ bl.id }}</td>
                         <td> {{ bl.location }} </td>
@@ -43,6 +46,7 @@
                             <a href="/autocalc/{{ bl.id }}">Calculate</a>
                         </td>
                     </tr>
+                    </tbody>
                 {% endfor %}
             </table>
         {% endif %}
@@ -52,7 +56,6 @@
 
 
     </div>
-
 
 
 

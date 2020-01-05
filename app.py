@@ -19,7 +19,8 @@ class Blend(db.Model):
     actualvl = db.Column(db.String(200), nullable=False)
     actualt50 = db.Column(db.String(200))
     finalcalc = db.Column(db.String(200))
-
+    blenddate = db.Column(db.DateTime)
+    targetrvp = db.Column(db.String(200))
 
     def __repr__(self):
         return '<Blend %r>' % self.id

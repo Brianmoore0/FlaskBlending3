@@ -7,27 +7,32 @@
 {% block body %}
 
     <div class="content">
-        <h1 style="text-align: center">Update Blend</h1>
+        <h4 style="text-align: center">Update Blend</h4>
 
         <div class="form">
             <form action="/update/{{ blend.id }}" method="POST">
 
-                <label class="active" for="location">Location</label>
+
                 <input placeholder="Location" type="text" name="location" id="location" value="{{ blend.location }}">
+                <label class="active" for="location">Location</label>
 
-                <label class="active" for="tankvolume">Tank Volume</label>
+
                 <input type="text" name="tankvolume" id="tankvolume" value="{{ blend.tankvolume }}">
+                <label class="active" for="tankvolume">Tank Volume</label>
 
 
-                <label class="active" for="actualrvp">Actual RVP</label>
                 <input type="text" name="actualrvp" id="actualrvp" value="{{ blend.actualrvp }}">
+                <label class="active" for="actualrvp">Actual RVP</label>
 
-                <label class="active" for="actualvl">Actual V/L</label>
                 <input type="text" name="actualvl" id="actualvl" value="{{ blend.actualvl }}">
+                <label class="active" for="actualvl">Actual V/L</label>
 
-                <label class="active" for="actualt50">Actual T50</label>
+
                 <input type="text" name="actualt50" id="actualt50" value="{{ blend.actualt50 }}">
+                <label class="active" for="actualt50">Actual T50</label>
 
+                <br>
+                <br>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Update Blend
                     <i class="material-icons right">save</i>
                 </button>

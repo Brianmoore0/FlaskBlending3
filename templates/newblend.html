@@ -13,20 +13,19 @@
             <form action="/newblend/" method="POST">
 
 
-                <input placeholder="Nashville" type="text" name="newlocation" id="newlocation" class="validate">
-                <label class="active" for="newlocation">Location</label>
-                
-                <input placeholder="35,000" type="text" name="newtankvolume" id="newtankvolume">
-                <label class="active" for="newtankvolume">Tank Volume</label>
+                <input placeholder="Location" type="text" name="newlocation" id="newlocation" class="validate" required>
 
-                <label class="active" for="actualrvp">Actual RVP</label>
-                <input placeholder="13.5" type="text" name="newactualrvp" id="newactualrvp">
 
-                <label class="active" for="actualvl">Actual V/L</label>
-                <input placeholder="111.5" type="text" name="newactualvl" id="newactualvl">
+                <input placeholder="Tank Volume" type="number" name="newtankvolume" id="newtankvolume">
 
-                <label class="active" for="actualt50">Actual T50</label>
-                <input placeholder="220.5" type="text" name="newactualt50" id="newactualt50">
+
+                <input placeholder="Actual RVP" type="text" name="newactualrvp" id="newactualrvp">
+
+
+                <input placeholder="Actual V/L" type="text" name="newactualvl" id="newactualvl">
+
+
+                <input placeholder="Actual T50" type="text" name="newactualt50" id="newactualt50">
 
                 <button class="btn waves-effect waves-light" type="submit" name="action">Save Blend
                     <i class="material-icons right">save</i>
@@ -34,5 +33,4 @@
             </form>
         </div>
     </div>
-
 {% endblock %}
