@@ -13,27 +13,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 
-    <nav class="nav-extended">
+    <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">BlendCalc</a>
-        </div>
-        <div class="nav-content">
-            <ul class="tabs tabs-transparent">
-                <li class="tab"><a href="/">All Blends</a></li>
-                <li class="tab"><a class="active" href="/update_targets">Modify Targets</a></li>
-            </ul>
+            <div class="container">
+                <a href="/" class="brand-logo">Blend Calculator</a>
+                <a href="#" class="sidenav-trigger" data-target="slide_out"><i class="material-icons">menu</i></a>
+
+                <ul class="hide-on-med-and-down right">
+                    <li class="active"><a href="/">All Blends</a></li>
+                    <li><a href="/update_targets">Modify Targets</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+
+    <ul class="sidenav" id="slide_out">
+        <li class="active"><a href="/">All Blends</a></li>
+        <li><a href="/update_targets">Modify Targets</a></li>
+    </ul>
 
     {% block head %} {% endblock %}
 </head>
 
 <body>
-{% block body %}
+
+<script>
+    const menu = document.querySelectorAll(".sidenav");
+    M.Sidenav.init(menu, {});
+</script>
 
 
-{% endblock %}
-
+{% block body %} {% endblock %}
 
 </body>
 </html>

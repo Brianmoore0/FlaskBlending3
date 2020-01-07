@@ -28,6 +28,8 @@ class Blend(db.Model):
 class BlendTargets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     targetdate = db.Column(db.String(200))
+    targetstate = db.Column(db.String(200))
+    targetlocation = db.Column(db.String(200))
     targetRVP = db.Column(db.String(200))
     targetvl = db.Column(db.String(200))
 
@@ -66,17 +68,18 @@ def NewBlend():
 
 @app.route('/autocalc/<int:id>')
 def Calculate(id):
-    blend = Blend.query.get_or_404(id)
-    newcalc = AutoBlendInfo(blend.location,blend.tankvolume,blend.actualrvp, blend.actualvl, blend.actualt50)
-    blend_bbls = newcalc.final_auto_calc()
-    blend.finalcalc = blend_bbls
+    def Calculate(id):
+        blend = Blend.query.get_or_404(id)
+        newcalc = AutoBlendInfo(blend.location, blend.tankvolume, blend.actualrvp, blend.actualvl, blend.actualt50)
+        blend_bbls = newcalc.final_auto_calc()
+        blend.finalcalc = blend_bbls
 
-    try:
-        db.session.commit()
-        return redirect('/')
+        try:
+            db.session.commit()
+            return redirect('/')
 
-    except:
-        return 'The blend did not calculate correctly'
+        except:
+            return 'The blend did not calculate correctly'
 
 
 @app.route('/delete/<int:id>')
@@ -116,9 +119,16 @@ def update(id):
 def material_test():
     return render_template("Material_test.html")
 
+
+@app.route('/checkbox_test', methods=['GET', 'POST'])
+def checkbox_test():
+    return render_template("checkbox_test.html")
+
+
 @app.route('/update_targets', methods=['GET', 'POST'])
 def update_targets():
-    return render_template('update_targets.html')
+    targets = BlendTargets.query.order_by(BlendTargets.id).all()
+    return render_template('update_targets.html', targets=targets)
 
 
 if __name__ == '__main__':

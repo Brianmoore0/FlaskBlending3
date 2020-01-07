@@ -50,7 +50,3 @@ class AutoBlendInfo:
         finalval = round((min(float(self.auto_calc_vl()), float(self.auto_calc_rvp()), float(self.auto_calc_t50()))), 2)
         return finalval
 
-
-
-
-

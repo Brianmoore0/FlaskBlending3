@@ -1,61 +1,67 @@
 {% extends "base.html" %}
 {% block head %}
-
-
-
 {% endblock %}
-
 {% block body %}
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="card-panel">
+            <h4 style="text-align: center">Curent Blends</h4>
+
+            {% if blends|length < 1 %}
 
 
+            {% else %}
 
-    <div class="content">
-
-
-        {% if blends|length < 1 %}
-
-
-        {% else %}
-            <table class="highlight">
-                <thead>
-                <tr>
-
-                    <th>Location</th>
-                    <th>Blend Date</th>
-                    <th>Tank Volume</th>
-                    <th>Actual Rvp</th>
-                    <th>Actual V/L</th>
-                    <th>Actual T50</th>
-                    <th>BBLs Needed</th>
-                </tr>
-                </thead>
-                {% for bl in blends %}
-                    <tbody>
+                <table class="highlight">
+                    <thead>
                     <tr>
 
-                        <td> {{ bl.location }} </td>
-                        <td>{{ bl.blenddate }}</td>
-                        <td> {{ bl.tankvolume }} </td>
-                        <td> {{ bl.actualrvp }} </td>
-                        <td> {{ bl.actualvl }} </td>
-                        <td> {{ bl.actualt50 }} </td>
-                        <td> {{ bl.finalcalc }} </td>
-                        <td>
-                            <a href="/autocalc/{{ bl.id }}">Calculate</a>
-                            <br>
-                            <a href="/update/{{ bl.id }}">Update</a>
-                            <br>
-                            <a href="/delete/{{ bl.id }}">Delete</a>
-                        </td>
+                        <th>Location</th>
+                        <th>Blend Date</th>
+                        <th>Tank Volume</th>
+                        <th>Actual Rvp</th>
+                        <th>Actual V/L</th>
+                        <th>Actual T50</th>
+                        <th>Blend Size</th>
                     </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-        {% endif %}
-        <br>
-        <a href="/newblend/" class="btn-floating btn-large waves-effect waves-light red"><i
-                class="material-icons">add</i></a>
+                    </thead>
+                    {% for bl in blends %}
+                        <tbody>
+                        <tr>
 
+                            <td> {{ bl.location }} </td>
+                            <td>{{ bl.blenddate }}</td>
+                            <td> {{ '{0:,}'.format(bl.tankvolume | int) }} </td>
+                            <td> {{ bl.actualrvp }} </td>
+                            <td> {{ bl.actualvl }} </td>
+                            <td> {{ bl.actualt50 }} </td>
+                            <td>
+                                {% if bl.finalcalc is none %}
+                                    <span class="new badge red" data-badge-caption="Not Calculated"></span>
+                                {% else %}
+                                    <span class="new badge blue"
+                                          data-badge-caption="BBLs Needed">{{ bl.finalcalc }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/autocalc/{{ bl.id }}">Calculate</a>
+                                <br>
+                                <a href="/update/{{ bl.id }}">Update</a>
+                                <br>
+                                <a href="/delete/{{ bl.id }}">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            <br>
+            <a href="/newblend/" class="btn-floating btn-large waves-effect waves-light red"><i
+                    class="material-icons">add</i></a>
+        </div>
 
     </div>
 
