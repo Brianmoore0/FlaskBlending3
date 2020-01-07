@@ -36,14 +36,30 @@
                             <td>{{ bl.blenddate }}</td>
                             <td> {{ '{0:,}'.format(bl.tankvolume | int) }} </td>
                             <td> {{ bl.actualrvp }} </td>
-                            <td> {{ bl.actualvl }} </td>
-                            <td> {{ bl.actualt50 }} </td>
+                            <td>
+                                {% if bl.actualvl == '' %}
+                                    <span class="new badge blue-grey" data-badge-caption="N/A"></span>
+                                {% else %}
+                                    {{ bl.actualvl }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if bl.actualt50 == '' %}
+                                    <span class="new badge blue-grey" data-badge-caption="N/A"></span>
+                                {% else %}
+                                    {{ bl.actualt50 }}
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if bl.finalcalc is none %}
                                     <span class="new badge red" data-badge-caption="Not Calculated"></span>
                                 {% else %}
                                     <span class="new badge blue"
                                           data-badge-caption="BBLs Needed">{{ bl.finalcalc }}</span>
+                                    <br>
+                                    <span class="new badge blue"
+                                          data-badge-caption="Trucks">{{ bl.finalcalc | int / 200 }}</span>
+
                                 {% endif %}
                             </td>
                             <td>

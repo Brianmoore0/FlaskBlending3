@@ -2,6 +2,21 @@
 
 {% block head %}
     <title>New Blend </title>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form input[id="t50vl"]').prop("readonly", true);
+            $(".test").click(function () {
+                if ($(this).prop("checked") == true) {
+                    $('form input[id="t50vl"]').prop("readonly", false);
+                } else if ($(this).prop("checked") == false) {
+                    $('form input[id="t50vl"]').prop("readonly", true);
+                }
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -15,6 +30,20 @@
             <div class="form">
                 <form action="/newblend/" method="POST">
 
+                    <label>
+                        Blend Calculation Method
+                    </label>
+
+                    <div class="switch" align="center">
+                        <label>
+                            RVP Only
+                            <input type="checkbox" class="test">
+                            <span class="lever"></span>
+                            RVP, V/L & T50
+                        </label>
+                    </div>
+
+
                     <input placeholder="Location" type="text" name="newlocation" id="newlocation" class="validate"
                            required>
 
@@ -27,10 +56,10 @@
                     <input placeholder="Actual RVP" type="text" name="newactualrvp" id="newactualrvp">
 
 
-                <input placeholder="Actual V/L" type="text" name="newactualvl" id="newactualvl">
+                    <input placeholder="Actual V/L" type="text" name="newactualvl" id="t50vl">
 
 
-                    <input placeholder="Actual T50" type="text" name="newactualt50" id="newactualt50">
+                    <input placeholder="Actual T50" type="text" name="newactualt50" id="t50vl">
 
                     <button class="btn waves-effect waves-light" type="submit" name="action">Save Blend
                         <i class="material-icons right">save</i>
@@ -48,4 +77,8 @@
         const Dropdown = document.querySelector('select');
         M.FormSelect.init(Dropdown, {});
     </script>
+
+
+
+
 {% endblock %}

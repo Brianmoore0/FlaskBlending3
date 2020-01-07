@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from AutoBlendSolverV4 import AutoBlendInfo
+from AutoBlendSolverV5 import RVPautoCalc, AllAutoCalc
 
 app = Flask(__name__)
 
@@ -16,25 +16,15 @@ class Blend(db.Model):
     location = db.Column(db.String(200), nullable=False)
     tankvolume = db.Column(db.String(200), default=0)
     actualrvp = db.Column(db.String(200), nullable=False)
-    actualvl = db.Column(db.String(200), nullable=False)
-    actualt50 = db.Column(db.String(200))
+    actualvl = db.Column(db.String(200), default=0)
+    actualt50 = db.Column(db.String(200), default=0)
     finalcalc = db.Column(db.String(200))
     blenddate = db.Column(db.String(200))
+    blendlimit = db.Column(db.String(200))
 
     def __repr__(self):
         return '<Blend %r>' % self.id
 
-
-class BlendTargets(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    targetdate = db.Column(db.String(200))
-    targetstate = db.Column(db.String(200))
-    targetlocation = db.Column(db.String(200))
-    targetRVP = db.Column(db.String(200))
-    targetvl = db.Column(db.String(200))
-
-    def __repr__(self):
-        return '<BlendTargets %r>' % self.id
 
 
 @app.route('/')
@@ -68,9 +58,21 @@ def NewBlend():
 
 @app.route('/autocalc/<int:id>')
 def Calculate(id):
-    def Calculate(id):
-        blend = Blend.query.get_or_404(id)
-        newcalc = AutoBlendInfo(blend.location, blend.tankvolume, blend.actualrvp, blend.actualvl, blend.actualt50)
+    blend = Blend.query.get_or_404(id)
+    if blend.actualvl is '' and blend.actualt50 is '':
+        newcalc = RVPautoCalc(blend.location, blend.tankvolume, blend.actualrvp)
+        blend_bbls = newcalc.auto_calc_rvp()
+        blend.finalcalc = blend_bbls
+        blend.blendlimit = 'RVP'
+
+        try:
+            db.session.commit()
+            return redirect('/')
+
+        except:
+            return "the blend didnt save correctly"
+    else:
+        newcalc = AllAutoCalc(blend.location, blend.tankvolume, blend.actualrvp, blend.actualvl, blend.actualt50)
         blend_bbls = newcalc.final_auto_calc()
         blend.finalcalc = blend_bbls
 
@@ -79,8 +81,7 @@ def Calculate(id):
             return redirect('/')
 
         except:
-            return 'The blend did not calculate correctly'
-
+            return "the blend didnt save correctly"
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -123,12 +124,6 @@ def material_test():
 @app.route('/checkbox_test', methods=['GET', 'POST'])
 def checkbox_test():
     return render_template("checkbox_test.html")
-
-
-@app.route('/update_targets', methods=['GET', 'POST'])
-def update_targets():
-    targets = BlendTargets.query.order_by(BlendTargets.id).all()
-    return render_template('update_targets.html', targets=targets)
 
 
 if __name__ == '__main__':

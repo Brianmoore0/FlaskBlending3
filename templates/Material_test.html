@@ -1,46 +1,74 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <!-- Compiled and minified CSS -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% block head %}
+    <title>New Blend </title>
 
 
-</head>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form input[name="t50vl"]').prop("disabled", true);
+            $(".test").click(function () {
+                if ($(this).prop("checked") == true) {
+                    $('form input[name="t50vl"]').prop("disabled", false);
+                } else if ($(this).prop("checked") == false) {
+                    $('form input[name="t50vl"]').prop("disabled", true);
+                }
+            });
+        });
+    </script>
+{% endblock %}
 
-<body>
+{% block body %}
 
-<nav>
-    <div class="nav-wrapper">
-        <div class="container">
-            <a href="/" class="brand-logo">Blend Calculator</a>
-            <a href="#" class="sidenav-trigger" data-target="slide_out"><i class="material-icons">menu</i></a>
+    <div class="content">
+        <br>
+        <br>
+        <div class="card-panel">
+            <h4 style="text-align: center">Add Blend</h4>
 
-            <ul class="hide-on-med-and-down right">
-                <li class="active"><a href="/">All Blends</a></li>
-                <li><a href="/update_targets">Modify Targets</a></li>
-            </ul>
+            <div class="form">
+                <form action="/newblend/" method="POST">
+                    <label>
+                        <input type="checkbox" class="test">
+                        <span>V/L or T50 Blend</span>
+                    </label>
+
+                    <input placeholder="Location" type="text" name="newlocation" id="newlocation" class="validate"
+                           required>
+
+
+                    <input placeholder="Blend Date" type="text" class="datepicker" name="newblenddate"
+                           id="newblenddate">
+                    <input placeholder="Tank Volume" type="number" name="newtankvolume" id="newtankvolume">
+
+
+                    <input placeholder="Actual RVP" type="text" name="newactualrvp" id="newactualrvp">
+
+
+                    <input placeholder="Actual V/L" type="text" name="t50vl" id="newactualvl">
+
+
+                    <input placeholder="Actual T50" type="text" name="t50vl" id="newactualt50">
+
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Blend
+                        <i class="material-icons right">save</i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</nav>
+    <script>
+        const Calender = document.querySelector('.datepicker');
+        M.Datepicker.init(Calender, {});
+    </script>
 
-<ul class="sidenav" id="slide_out">
-    <li class="active"><a href="/">All Blends</a></li>
-    <li><a href="/update_targets">Modify Targets</a></li>
-</ul>
+    <script>
+        const Dropdown = document.querySelector('select');
+        M.FormSelect.init(Dropdown, {});
+    </script>
 
 
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-    const slide_menu = document.querySelectorAll(".sidenav");
-    M.Sidenav.init(slide_menu, {});
-</script>
 
-<script>
-    const Calender = document.querySelector('.datepicker');
-    M.Datepicker.init(Calender, {});
-</script>
-</body>
-</html>
+
+{% endblock %}

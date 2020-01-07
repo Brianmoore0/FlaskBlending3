@@ -20,7 +20,8 @@ class RVPautoCalc:
                     int(self.tankvol) * float(self.actualrvp))) / x
             - int(btrvp)
             , x, dict=True))
-        return round((sol[0][x]), 1)
+        finalval = round((sol[0][x]), 1)
+        return round(float(finalval), 2)
 
 
 class AllAutoCalc:
@@ -32,9 +33,9 @@ class AllAutoCalc:
         self.actualt50 = actualt50
 
     def auto_calc_vl(self):
-        solution = (
+        VLsolution = (
             abs(round(((float(self.actualvl) - float(targetvl)) / 2) / 100 * int(self.tankvol), 1)))
-        return solution
+        return VLsolution
 
     def auto_calc_rvp(self):
         sol = (solve(
@@ -42,19 +43,14 @@ class AllAutoCalc:
                     int(self.tankvol) * float(self.actualrvp))) / x
             - int(btrvp)
             , x, dict=True))
-        return round((sol[0][x]), 1)
+        RVPsol = round((sol[0][x]), 1)
+
+        return RVPsol
 
     def auto_calc_t50(self):
-        sol = round((float(self.actualt50) - 182) / 1.5 / 100 * (int(self.tankvol)), 1)
-        if float(self.actualt50) > 182:
-            return (sol)
-        else:
-            return None
+        T50sol = round((float(self.actualt50) - 182) / 1.5 / 100 * (int(self.tankvol)), 1)
+        return (T50sol)
 
     def final_auto_calc(self):
         finalval = round((min(float(self.auto_calc_vl()), float(self.auto_calc_rvp()), float(self.auto_calc_t50()))), 2)
-        print(finalval)
-
-
-blend1 = AllAutoCalc('Test1', 41993, 12.85, 113.9, 194.2)
-blend1.final_auto_calc()
+        return finalval
