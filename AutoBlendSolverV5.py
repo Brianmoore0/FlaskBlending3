@@ -1,5 +1,6 @@
 from sympy import Symbol
 from sympy.solvers import solve
+import sys
 
 x = Symbol('x')
 
@@ -52,5 +53,22 @@ class AllAutoCalc:
         return (T50sol)
 
     def final_auto_calc(self):
-        finalval = round((min(float(self.auto_calc_vl()), float(self.auto_calc_rvp()), float(self.auto_calc_t50()))), 2)
-        return finalval
+        minval = float(0) #Not sure what the upper bound on this result is
+        minname = "placeholder"
+
+        #There's certainly a for loop that could encompass this, but looping over methods feels wrong and clumsy 
+        if float(self.auto_calc_vl()) < minval:
+            minval = float(self.auto_calc_vl())   
+            minname = "auto_calc_vl()"
+
+        if float(self.auto_calc_rvp()) < minval:
+            minval = float(self.auto_calc_rvp())   
+            minname = "auto_calc_rvp()"
+
+        if float(self.auto_calc_t50()) < minval:
+            minval = float(self.auto_calc_t50())   
+            minname = "auto_calc_t50()"
+
+        capsule = (minval, minname) #wraps these two results up in a tuple datatype
+
+        return capsule
