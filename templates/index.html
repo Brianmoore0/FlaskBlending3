@@ -8,7 +8,7 @@
         <br>
         <br>
         <div class="card-panel">
-            <h4 style="text-align: center">Curent Blends</h4>
+            <h4 style="text-align: center">Current Blends</h4>
 
             {% if blends|length < 1 %}
 
@@ -26,6 +26,7 @@
                         <th>Actual V/L</th>
                         <th>Actual T50</th>
                         <th>Blend Size</th>
+                        <th>Blend Limit</th>
                     </tr>
                     </thead>
                     {% for bl in blends %}
@@ -61,6 +62,9 @@
                                           data-badge-caption="Trucks">{{ bl.finalcalc | int / 200 }}</span>
 
                                 {% endif %}
+                            </td>
+                            <td>
+                                {{ bl.blendlimit }}
                             </td>
                             <td>
                                 <a href="/autocalc/{{ bl.id }}">Calculate</a>

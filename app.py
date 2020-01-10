@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from AutoBlendSolverV5 import RVPautoCalc, AllAutoCalc
+from AutoBlendSolverV6 import RVPautoCalc, AllAutoCalc
 
 app = Flask(__name__)
 
@@ -21,6 +21,7 @@ class Blend(db.Model):
     finalcalc = db.Column(db.String(200))
     blenddate = db.Column(db.String(200))
     blendlimit = db.Column(db.String(200))
+
 
     def __repr__(self):
         return '<Blend %r>' % self.id
@@ -49,6 +50,7 @@ def NewBlend():
         try:
             db.session.add(new_blend)
             db.session.commit()
+
             return redirect('/')
         except:
             return 'the blend didnt save correctly'
@@ -63,7 +65,7 @@ def Calculate(id):
         newcalc = RVPautoCalc(blend.location, blend.tankvolume, blend.actualrvp)
         blend_bbls = newcalc.auto_calc_rvp()
         blend.finalcalc = blend_bbls
-        blend.blendlimit = 'RVP'
+        blend.blendlimit = 'RVP Only'
 
         try:
             db.session.commit()
@@ -74,7 +76,8 @@ def Calculate(id):
     else:
         newcalc = AllAutoCalc(blend.location, blend.tankvolume, blend.actualrvp, blend.actualvl, blend.actualt50)
         blend_bbls = newcalc.final_auto_calc()
-        blend.finalcalc = blend_bbls
+        blend.finalcalc = blend_bbls[0]
+        blend.blendlimit = blend_bbls[1]
 
         try:
             db.session.commit()
